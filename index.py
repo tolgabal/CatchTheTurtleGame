@@ -20,8 +20,22 @@ turtle_turtle.shape("turtlepic.gif")
 turtle_writer = turtle.Turtle()
 turtle_writer.hideturtle()
 turtle_writer.penup()
-turtle_writer.goto(-40,128)
-turtle_writer.write("test yazısı", font=("helvetica", 18, "bold"))
+turtle_writer.color("red")
 
+score = 0
+
+def scoreboard_writer(score):
+    turtle_writer.clear()
+    turtle_writer.goto(-40,128)
+    turtle_writer.write("Score: {}".format(score), font=("helvetica", 18, "bold"))
+
+def turtle_clicker(x,y):
+    global score
+    score +=1
+    scoreboard_writer(score)
+    
+scoreboard_writer(score)
+
+turtle_turtle.onclick(turtle_clicker)
 
 turtle.mainloop()
