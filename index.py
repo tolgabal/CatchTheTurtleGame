@@ -7,16 +7,23 @@ Created on Sat Mar  1 00:55:23 2025
 
 import turtle
 import random
+import sys
+import os
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return relative_path
 
 main_screen = turtle.Screen()
-main_screen.bgpic("bgpic.gif")
+main_screen.bgpic(resource_path("bgpic.gif"))
 main_screen.screensize(600,338)
 main_screen.setup(600,338)
-main_screen.addshape("turtlepic.gif")
-main_screen.addshape("endgameturtle.gif")
+main_screen.addshape(resource_path("turtlepic.gif"))
+main_screen.addshape(resource_path("endgameturtle.gif"))
 
 turtle_turtle = turtle.Turtle()
-turtle_turtle.shape("turtlepic.gif")
+turtle_turtle.shape(resource_path("turtlepic.gif"))
 turtle_turtle.penup()
 
 turtle_writer = turtle.Turtle()
@@ -30,7 +37,7 @@ turtle_counter.hideturtle()
 
 turtle_endgame = turtle.Turtle()
 turtle_endgame.hideturtle()
-turtle_endgame.shape("endgameturtle.gif")
+turtle_endgame.shape(resource_path("endgameturtle.gif"))
 
 score = 0
 total_click = 0
