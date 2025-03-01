@@ -13,6 +13,7 @@ main_screen.bgpic("bgpic.gif")
 main_screen.screensize(600,338)
 main_screen.setup(600,338)
 main_screen.addshape("turtlepic.gif")
+main_screen.addshape("endgameturtle.gif")
 
 turtle_turtle = turtle.Turtle()
 turtle_turtle.shape("turtlepic.gif")
@@ -27,18 +28,30 @@ turtle_counter = turtle.Turtle()
 turtle_counter.penup()
 turtle_counter.hideturtle()
 
+turtle_endgame = turtle.Turtle()
+turtle_endgame.hideturtle()
+turtle_endgame.shape("endgameturtle.gif")
+
 score = 0
+total_click = 0
 counterVar = 16
 
-def scoreboard_writer(score):
+def scoreboard_writer():
+    global score
+    global total_click
     turtle_writer.clear()
-    turtle_writer.goto(-40,128)
-    turtle_writer.write("Score: {}".format(score), font=("helvetica", 18, "bold"))
+    turtle_writer.goto(-100,128)
+    turtle_writer.write("Score: " + str(score) + "    Total Try: " + str(total_click), font=("helvetica", 18, "bold"))
 
 def turtle_clicker(x,y):
     global score
-    score +=1
-    scoreboard_writer(score)
+    score += 1
+    scoreboard_writer()
+    
+def screen_clicker(x,y):
+    global total_click
+    total_click += 1
+    scoreboard_writer()
     
 def counter():
     global counterVar
@@ -67,11 +80,13 @@ def gameover():
     turtle_turtle.hideturtle()
     turtle_counter.goto(-100,0)
     turtle_counter.write("Game Over", font=("helvetica", 36, "bold"))
+    turtle_endgame.showturtle()
     
 turtle_teleport()
 counter()
-scoreboard_writer(score)
+scoreboard_writer()
 turtle_turtle.onclick(turtle_clicker)
+main_screen.onclick(screen_clicker)
 
 
 turtle.mainloop()
