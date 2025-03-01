@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Sat Mar  1 00:55:23 2025
@@ -43,20 +42,31 @@ def turtle_clicker(x,y):
     
 def counter():
     global counterVar
-    turtle_counter.clear()
-    turtle_counter.goto(-10,98)
-    counterVar -= 1
-    turtle_counter.write(counterVar, font=("helvetica", 18, "bold"))
+    if counterVar >0:
+        turtle_counter.clear()
+        turtle_counter.goto(-10,98)
+        counterVar -= 1
+        turtle_counter.write(counterVar, font=("helvetica", 18, "bold"))
+    if counterVar == 0:
+        gameover()
     main_screen.ontimer(counter, 1000)
     
 def turtle_teleport():
-    xPlane = random.randint(-300, 300)
-    yPlane = random.randint(-169, 169)
-    turtle_turtle.hideturtle()
-    turtle_turtle.goto(xPlane,yPlane)
-    turtle_turtle.showturtle()
+    global score
+    if counterVar > 0:
+        xPlane = random.randint(-300, 300)
+        yPlane = random.randint(-169, 169)
+        turtle_turtle.hideturtle()
+        turtle_turtle.goto(xPlane,yPlane)
+        turtle_turtle.showturtle()
+    main_screen.ontimer(turtle_teleport, 1000-(score*50))
+    if counterVar == 0:
+        turtle_turtle.hideturtle()
     
-    main_screen.ontimer(turtle_teleport, 700)
+def gameover():
+    turtle_turtle.hideturtle()
+    turtle_counter.goto(-100,0)
+    turtle_counter.write("Game Over", font=("helvetica", 36, "bold"))
     
 turtle_teleport()
 counter()
